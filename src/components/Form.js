@@ -18,12 +18,18 @@ class Form extends React.Component {
     })
   }
   
-  handleSubmit = event => {
-  event.preventDefault()
-  let formData = { firstName: this.state.firstName, lastName: this.state.lastName }
-  this.sendFormDataSomewhere(formData)
-}
-
+   handleSubmit = event => {
+    event.preventDefault()
+    let formData = { firstName: this.state.firstName, lastName: this.state.lastName }
+    let dataArray = this.state.submittedData.concat(formData)
+    this.setState({submittedData: dataArray})
+  }
+ 
+  listOfSubmissions = () => {
+    return this.state.submittedData.map(data => {
+      return <div><span>{data.firstName}</span> <span>{data.lastName}</span></div>
+    })
+  }
   render() {
     return (
       <form onSubmit={event => this.handleSubmit(event)}>
